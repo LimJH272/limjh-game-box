@@ -3,6 +3,12 @@
 A compendium of small browser minigames, hosted on GitHub Pages at
 `https://<your-username>.github.io/limjh-game-box/`.
 
+## Games
+
+| Game | Description |
+| --- | --- |
+| [GSSTHWRDS](games/gssthwrds/) | Guess words and phrases from their consonants alone. Party mode (self-scored) or Solo mode (type your guess). |
+
 ## Project structure
 
 ```

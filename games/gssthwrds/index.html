@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GSSTHWRDS · LimJH's Game Box</title>
+  <meta name="description" content="Guess the words from their consonants alone.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Setup -->
+  <section id="setup" class="screen setup">
+    <a class="back-link" href="../../">&larr; Game Box</a>
+    <header class="hero">
+      <h1>GSSTHWRDS</h1>
+      <p class="tagline">Guess the words from their consonants alone.</p>
+    </header>
+
+    <div class="setup-body">
+      <fieldset class="mode-picker">
+        <legend>Mode</legend>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="party" checked>
+          <span><strong>Party</strong>Guess out loud, then mark yourselves after the reveal.</span>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="solo">
+          <span><strong>Solo</strong>Type your guess. Revealing without a correct guess counts as a miss.</span>
+        </label>
+      </fieldset>
+
+      <label class="words-label" for="words">Words or phrases, one per line</label>
+      <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll"></textarea>
+
+      <button id="play" class="btn btn-primary btn-wide" type="button" disabled>Play</button>
+    </div>
+  </section>
+
+  <!-- Play -->
+  <section id="game" class="screen game" hidden>
+    <div class="topbar">
+      <span id="position" class="position"></span>
+      <span class="score" aria-live="polite"><span id="score">0</span> / <span id="total">0</span></span>
+      <button id="exit" class="icon-btn" type="button" aria-label="Exit game">&times;</button>
+    </div>
+
+    <div class="stage">
+      <div id="tiles" class="tiles" aria-live="polite"></div>
+      <ul id="hints" class="hints"></ul>
+      <p id="answer" class="answer" hidden></p>
+
+      <form id="guess-form" class="guess-form" hidden autocomplete="off">
+        <input id="guess" type="text" placeholder="Your guess" aria-label="Your guess" autocapitalize="off" spellcheck="false">
+        <button class="btn" type="submit">Guess</button>
+      </form>
+
+      <div id="marker" class="marker" hidden>
+        <button id="mark-yes" class="btn mark mark-yes" type="button" aria-pressed="false">&#10003; Got it</button>
+        <button id="mark-no" class="btn mark mark-no" type="button" aria-pressed="false">&#10007; Missed</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="back" class="btn" type="button">Back</button>
+      <button id="hint" class="btn" type="button">Hint</button>
+      <button id="reveal" class="btn btn-primary" type="button">Reveal</button>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="results" class="screen results" hidden>
+    <header class="hero">
+      <p class="tagline">Final score</p>
+      <h1><span id="final-score">0</span> / <span id="final-total">0</span></h1>
+    </header>
+    <ol id="summary" class="summary"></ol>
+    <div class="results-actions">
+      <button id="again" class="btn btn-primary" type="button">Play again</button>
+      <button id="edit" class="btn" type="button">Edit words</button>
+    </div>
+  </section>
+
+  <script src="game.js"></script>
+</body>
+</html>

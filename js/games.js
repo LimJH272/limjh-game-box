@@ -10,4 +10,12 @@
 //   }
 //
 // Paths must be relative (no leading slash) so the site works under /limjh-game-box/.
-window.GAMES = [];
+window.GAMES = [
+  {
+    id: "gssthwrds",
+    title: "GSSTHWRDS",
+    description: "Guess the words from their consonants alone.",
+    path: "games/gssthwrds/",
+    emoji: "🔤"
+  }
+];
