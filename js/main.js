@@ -42,7 +42,5 @@
 
   if (games.length === 0) {
     for (var i = 0; i < PLACEHOLDER_COUNT; i++) grid.appendChild(placeholderCard());
-    var note = el("p", "empty-note", "No games yet — check back soon!");
-    grid.parentNode.insertBefore(note, grid);
   }
 })();
