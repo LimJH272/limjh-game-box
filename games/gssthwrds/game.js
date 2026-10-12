@@ -70,12 +70,14 @@
       .filter(function (l) { return l.length > 0; });
   }
 
-  // A line must mix vowels with something else: no vowels at all (consonants,
-  // digits or symbols only) or nothing but vowels can't be played.
+  // A line needs at least one vowel and at least one consonant letter.
+  // Digits and symbols don't count towards either, so lines like "BCD123"
+  // (no vowels) or "A1" (no consonants) can't be played.
   function isInvalid(line) {
     var chars = letters(line).split("");
     var vowels = chars.filter(isVowel).length;
-    return vowels === 0 || vowels === chars.length;
+    var consonants = chars.filter(function (ch) { return /\p{L}/u.test(ch) && !isVowel(ch); }).length;
+    return vowels === 0 || consonants === 0;
   }
 
   function invalidLines() {
