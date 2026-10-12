@@ -51,11 +51,17 @@
     // Every word has at least one vowel (see invalidLines), so there are 2 or 3 hints.
     var hintCount = vowelSlots.length === 1 ? 2 : 3;
 
+    // Letter count of each space-separated word, for showing the spaces in hint 3.
+    var wordLengths = line.split(/\s+/)
+      .map(function (word) { return letters(word).length; })
+      .filter(function (n) { return n > 0; });
+
     return {
       original: line,
       chars: chars,
       vowelCount: vowelSlots.length,
       shownVowels: shown,
+      wordLengths: wordLengths,
       hintCount: hintCount,
       hintsUsed: 0,
       revealed: false,
@@ -192,14 +198,26 @@
     var visible = round.chars.filter(function (ch) { return showSlots || !isVowel(ch); });
     tiles.style.setProperty("--count", Math.max(visible.length, 4));
 
+    // Hint 3 (and the reveal) also splits the tiles into words where the spaces were.
+    var showSpaces = round.revealed || round.hintsUsed >= 3;
+    tiles.classList.toggle("tiles-words", showSpaces);
+
+    var wordNo = 0;
+    var wordEnd = round.wordLengths[0];
+    var group = showSpaces ? tiles.appendChild(el("span", "word")) : tiles;
+
     round.chars.forEach(function (ch, i) {
+      if (showSpaces && i === wordEnd) {
+        wordEnd += round.wordLengths[++wordNo];
+        group = tiles.appendChild(el("span", "word"));
+      }
       if (!isVowel(ch)) {
-        tiles.appendChild(el("span", "tile", ch));
+        group.appendChild(el("span", "tile", ch));
       } else if (round.revealed) {
-        tiles.appendChild(el("span", "tile tile-vowel", ch));
+        group.appendChild(el("span", "tile tile-vowel", ch));
       } else if (showSlots) {
         var filled = round.hintsUsed >= 3 && round.shownVowels.indexOf(i) !== -1;
-        tiles.appendChild(el("span", filled ? "tile tile-vowel" : "tile tile-slot", filled ? ch : ""));
+        group.appendChild(el("span", filled ? "tile tile-vowel" : "tile tile-slot", filled ? ch : ""));
       }
     });
   }
@@ -212,7 +230,10 @@
       list.appendChild(el("li", null, n + (n === 1 ? " vowel" : " vowels")));
     }
     if (round.hintsUsed >= 2) list.appendChild(el("li", null, "Vowel spots shown"));
-    if (round.hintsUsed >= 3) list.appendChild(el("li", null, round.shownVowels.length + " of " + round.vowelCount + " vowels filled in"));
+    if (round.hintsUsed >= 3) {
+      list.appendChild(el("li", null, round.shownVowels.length + " of " + round.vowelCount + " vowels filled in"));
+      if (round.wordLengths.length > 1) list.appendChild(el("li", null, "Spaces shown"));
+    }
   }
 
   function render() {

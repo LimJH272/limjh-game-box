@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap">
-  <link rel="stylesheet" href="../../css/style.css?v=2">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="../../css/style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
           <li>Spaces, punctuation and vowels <span class="example">(A E I O U)</span> are removed, only consonants
             remain: <span class="example">Banana split &rarr; <b>BNNSPLT</b></span></li>
           <li>Each line needs at least one vowel and one consonant; digits don't count as either.</li>
-          <li>Up to 3 hints: vowel count, vowel spots, then half the vowels.</li>
+          <li>Up to 3 hints: vowel count, vowel spots, then half the vowels plus the spaces between words.</li>
           <li>Score = words guessed right out of the total.</li>
         </ul>
       </section>
@@ -135,7 +135,7 @@
       <li><b>Need help?</b> Tap <b>Hint</b>. First you learn the number of vowels, then where they go <span
           class="mini-tiles"><i>B</i><i class="slot"></i><i>N</i><i class="slot"></i><i>N</i><i
             class="slot"></i><i>S</i><i>P</i><i>L</i><i class="slot"></i><i>T</i></span>, then half of them are filled
-        in.</li>
+        in and the spaces between words are shown.</li>
       <li><b>Reveal and mark.</b> Tap <b>Reveal</b> to show the answer, then tap <b>&#10003; Got it</b> or <b>&#10007;
           Missed</b>. Only "Got it" adds to the score.</li>
       <li><b>Keep going.</b> <b>Next</b> moves on; <b>Back</b> revisits earlier words, where you can still change a
@@ -158,7 +158,7 @@
       </li>
       <li><b>Wrong?</b> The box shakes and you get the next hint for free. Once every hint is showing, one more wrong
         guess reveals the answer and counts as a miss.</li>
-      <li><b>Hints</b> go in order: the number of vowels, then where they go, then half of them filled in. You can also
+      <li><b>Hints</b> go in order: the number of vowels, then where they go, then half of them filled in plus the spaces between words. You can also
         tap <b>Hint</b> yourself.</li>
       <li><b>Give up?</b> Tap <b>Reveal</b> and confirm. It shows the answer and counts as a miss. A correct guess
         reveals it automatically and scores a point. Then tap <b>Next</b>.</li>
@@ -184,7 +184,7 @@
     </div>
   </dialog>
 
-  <script src="game.js?v=2"></script>
+  <script src="game.js?v=3"></script>
 </body>
 
 </html>

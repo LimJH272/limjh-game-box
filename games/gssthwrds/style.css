@@ -469,6 +469,17 @@ textarea:focus {
   max-width: 100%;
 }
 
+.tiles-words {
+  column-gap: calc(var(--size) * 0.7);
+}
+
+.word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
 .tile {
   display: inline-flex;
   align-items: center;
