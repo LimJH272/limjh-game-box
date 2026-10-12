@@ -323,7 +323,11 @@
 
   function exitGame() {
     var started = rounds.some(function (r) { return r.revealed || r.hintsUsed > 0; });
-    if (started && !window.confirm("Quit this game? Your progress will be lost.")) return;
+    if (started) $("confirm-exit").showModal();
+    else quitGame();
+  }
+
+  function quitGame() {
     show("setup");
     syncBackdrop();
   }
@@ -366,6 +370,10 @@
 
   document.querySelectorAll("[data-tutorial]").forEach(function (button) {
     button.addEventListener("click", function () { $(button.dataset.tutorial).showModal(); });
+  });
+  $("confirm-exit-yes").addEventListener("click", function () {
+    $("confirm-exit").close();
+    quitGame();
   });
   $("confirm-reveal-yes").addEventListener("click", function () {
     $("confirm-reveal").close();
