@@ -3,8 +3,6 @@
 A compendium of small browser minigames, hosted on GitHub Pages at
 `https://<your-username>.github.io/limjh-game-box/`.
 
-Plain HTML, CSS and JavaScript — no build step.
-
 ## Project structure
 
 ```
