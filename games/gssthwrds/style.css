@@ -376,6 +376,27 @@ textarea:focus {
   border-color: var(--muted);
 }
 
+.confirm {
+  width: min(380px, calc(100vw - 32px));
+  text-align: center;
+}
+
+.confirm h2 {
+  margin: 4px 0 8px;
+  font: 700 1.4rem var(--font-display);
+}
+
+.confirm p {
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+
+.confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .category-chip {
   margin: 0;
   padding: 4px 14px;

@@ -250,6 +250,11 @@
     $("reveal").textContent = round.revealed ? "Next" : "Reveal";
   }
 
+  function reveal() {
+    rounds[index].revealed = true;
+    render();
+  }
+
   function giveHint() {
     var round = rounds[index];
     if (round.revealed || round.hintsUsed >= round.hintCount) return;
@@ -260,8 +265,9 @@
   function revealOrNext() {
     var round = rounds[index];
     if (!round.revealed) {
-      round.revealed = true;
-      render();
+      // In Solo, revealing means giving up, so check first.
+      if (mode === "solo") $("confirm-reveal").showModal();
+      else reveal();
       return;
     }
     if (index < rounds.length - 1) {
@@ -360,6 +366,10 @@
 
   document.querySelectorAll("[data-tutorial]").forEach(function (button) {
     button.addEventListener("click", function () { $(button.dataset.tutorial).showModal(); });
+  });
+  $("confirm-reveal-yes").addEventListener("click", function () {
+    $("confirm-reveal").close();
+    reveal();
   });
   document.querySelectorAll("dialog.tutorial").forEach(function (dialog) {
     dialog.addEventListener("click", function (event) {

@@ -1,17 +1,21 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GSSTHWRDS · LimJH's Game Box</title>
   <meta name="description" content="Guess the words from their consonants alone.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- Setup -->
@@ -26,9 +30,10 @@
       <section class="rules" aria-labelledby="rules-title">
         <h2 id="rules-title">The rules</h2>
         <ul>
-          <li>Enter one word or phrase per line.</li>
-          <li>Spaces, punctuation and vowels <span class="example">(A E I O U)</span> are removed: <span class="example">Banana split &rarr; <b>BNNSPLT</b></span></li>
-          <li>Y is a consonant. Each line needs at least one vowel and one consonant; digits don't count as either.</li>
+          <li>Enter one word or phrase per line. One line will be shown per page.</li>
+          <li>Spaces, punctuation and vowels <span class="example">(A E I O U)</span> are removed, only consonants
+            remain: <span class="example">Banana split &rarr; <b>BNNSPLT</b></span></li>
+          <li>Each line needs at least one vowel and one consonant; digits don't count as either.</li>
           <li>Up to 3 hints: vowel count, vowel spots, then half the vowels.</li>
           <li>Score = words guessed right out of the total.</li>
         </ul>
@@ -53,12 +58,14 @@
       </fieldset>
 
       <label class="field-label" for="category">Category <span class="optional">(optional)</span></label>
-      <input id="category" class="text-input" type="text" maxlength="40" placeholder="e.g. Movies, Foods, Famous people" autocomplete="off">
+      <input id="category" class="text-input" type="text" maxlength="40" placeholder="e.g. Movies, Foods, Famous people"
+        autocomplete="off">
 
       <label class="field-label" for="words">Words or phrases, one per line</label>
       <div class="words-field">
         <div id="words-backdrop" class="words-backdrop" aria-hidden="true"></div>
-        <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll" aria-describedby="words-error"></textarea>
+        <textarea id="words" rows="8" spellcheck="false"
+          placeholder="Guess the words&#10;Banana split&#10;Rock and roll" aria-describedby="words-error"></textarea>
       </div>
       <p id="words-error" class="words-error" role="alert" hidden></p>
 
@@ -81,7 +88,8 @@
       <p id="answer" class="answer" hidden></p>
 
       <form id="guess-form" class="guess-form" hidden autocomplete="off">
-        <input id="guess" type="text" placeholder="Your guess" aria-label="Your guess" autocapitalize="off" spellcheck="false">
+        <input id="guess" type="text" placeholder="Your guess" aria-label="Your guess" autocapitalize="off"
+          spellcheck="false">
         <button class="btn" type="submit">Guess</button>
       </form>
 
@@ -119,11 +127,19 @@
       <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
     </div>
     <ol class="steps">
-      <li><b>Host sets up.</b> One person types the words (one per line), adds a category if they like, and presses Play. Everyone else looks away!</li>
-      <li><b>Show the screen.</b> Everyone sees only the consonants, e.g. <span class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, and shouts out guesses.</li>
-      <li><b>Need help?</b> Tap <b>Hint</b>. First you learn the number of vowels, then where they go <span class="mini-tiles"><i>B</i><i class="slot"></i><i>N</i><i class="slot"></i><i>N</i><i class="slot"></i><i>S</i><i>P</i><i>L</i><i class="slot"></i><i>T</i></span>, then half of them are filled in.</li>
-      <li><b>Reveal and mark.</b> Tap <b>Reveal</b> to show the answer, then tap <b>&#10003; Got it</b> or <b>&#10007; Missed</b>. Only "Got it" adds to the score.</li>
-      <li><b>Keep going.</b> <b>Next</b> moves on; <b>Back</b> revisits earlier words, where you can still change a mark. After the last word you'll see the final score.</li>
+      <li><b>Host sets up.</b> One person types the words (one per line), adds a category if they like, and presses
+        Play. Everyone else looks away!</li>
+      <li><b>Show the screen.</b> Everyone sees only the consonants, e.g. <span
+          class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, and shouts out guesses.
+      </li>
+      <li><b>Need help?</b> Tap <b>Hint</b>. First you learn the number of vowels, then where they go <span
+          class="mini-tiles"><i>B</i><i class="slot"></i><i>N</i><i class="slot"></i><i>N</i><i
+            class="slot"></i><i>S</i><i>P</i><i>L</i><i class="slot"></i><i>T</i></span>, then half of them are filled
+        in.</li>
+      <li><b>Reveal and mark.</b> Tap <b>Reveal</b> to show the answer, then tap <b>&#10003; Got it</b> or <b>&#10007;
+          Missed</b>. Only "Got it" adds to the score.</li>
+      <li><b>Keep going.</b> <b>Next</b> moves on; <b>Back</b> revisits earlier words, where you can still change a
+        mark. After the last word you'll see the final score.</li>
     </ol>
     <button class="btn btn-primary btn-wide" type="button" data-close>Got it!</button>
   </dialog>
@@ -134,15 +150,32 @@
       <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
     </div>
     <ol class="steps">
-      <li><b>Get a word list.</b> Ask a friend to type the words (one per line) and an optional category, or paste a list you haven't read. Then press Play.</li>
-      <li><b>Guess.</b> Look at the consonants, e.g. <span class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, type your answer and press <b>Enter</b>. Capitals, spaces and punctuation don't matter.</li>
-      <li><b>Wrong?</b> The box shakes and you get the next hint for free. Once every hint is showing, one more wrong guess reveals the answer and counts as a miss.</li>
-      <li><b>Hints</b> go in order: the number of vowels, then where they go, then half of them filled in. You can also tap <b>Hint</b> yourself.</li>
-      <li><b>Give up?</b> <b>Reveal</b> shows the answer but counts as a miss. A correct guess reveals it automatically and scores a point. Then tap <b>Next</b>.</li>
+      <li><b>Get a word list.</b> Ask a friend to type the words (one per line) and an optional category, or paste a
+        list you haven't read. Then press Play.</li>
+      <li><b>Guess.</b> Look at the consonants, e.g. <span
+          class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, type your answer and press
+        <b>Enter</b>. Capitals, spaces and punctuation don't matter.
+      </li>
+      <li><b>Wrong?</b> The box shakes and you get the next hint for free. Once every hint is showing, one more wrong
+        guess reveals the answer and counts as a miss.</li>
+      <li><b>Hints</b> go in order: the number of vowels, then where they go, then half of them filled in. You can also
+        tap <b>Hint</b> yourself.</li>
+      <li><b>Give up?</b> Tap <b>Reveal</b> and confirm. It shows the answer and counts as a miss. A correct guess
+        reveals it automatically and scores a point. Then tap <b>Next</b>.</li>
     </ol>
     <button class="btn btn-primary btn-wide" type="button" data-close>Got it!</button>
   </dialog>
 
+  <dialog id="confirm-reveal" class="tutorial confirm" aria-labelledby="confirm-reveal-title">
+    <h2 id="confirm-reveal-title">Are you sure?</h2>
+    <p>Revealing shows the answer and marks this word as a miss.</p>
+    <div class="confirm-actions">
+      <button class="btn" type="button" data-close>Keep guessing</button>
+      <button id="confirm-reveal-yes" class="btn btn-primary" type="button">Reveal</button>
+    </div>
+  </dialog>
+
   <script src="game.js"></script>
 </body>
+
 </html>
