@@ -244,3 +244,9 @@ Things worth checking after a change:
 - Party: Reveal has no popup, and Got it / Missed updates the score.
 - ✕ asks for confirmation only once you've made progress.
 - Phone width (~375px) and dark mode.
+
+## Acknowledgement
+
+This game is inspired by short-form video content on Facebook/Instagram. I will link to a few examples once I find them again.
+
+The code for this game is mostly written by Claude Code with few manual edits.

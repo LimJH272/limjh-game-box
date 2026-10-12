@@ -50,3 +50,7 @@ Pushes to `main` deploy automatically via `.github/workflows/deploy.yml`.
 
 One-time setup: in the repository, go to **Settings → Pages** and set
 **Source** to **GitHub Actions**.
+
+## Acknowledgement
+
+The code for this game is mostly written by Claude Code with few manual edits.
