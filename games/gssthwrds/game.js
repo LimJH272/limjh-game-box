@@ -290,11 +290,21 @@
       round.correct = true;
       round.revealed = true;
       render();
-    } else {
-      input.classList.remove("wrong");
-      void input.offsetWidth; // restart the shake animation
+      return;
+    }
+
+    // A wrong guess unlocks the next hint; once every hint is showing,
+    // another wrong guess reveals the answer and counts as a miss.
+    if (round.hintsUsed < round.hintCount) {
+      round.hintsUsed++;
+      var typed = input.value;
+      render();
+      input.value = typed;
       input.classList.add("wrong");
       input.select();
+    } else {
+      round.revealed = true;
+      render();
     }
   }
 
