@@ -121,6 +121,7 @@ main {
 }
 
 .card {
+  position: relative;
   display: block;
   height: 100%;
   padding: 22px;
@@ -138,6 +139,15 @@ a.card:focus-visible {
   transform: translate(-2px, -3px) rotate(-1deg);
   box-shadow: 6px 7px 0 var(--accent);
   outline: none;
+}
+
+.card-updated {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .card-icon {
@@ -171,14 +181,41 @@ a.card:focus-visible {
   background: color-mix(in srgb, var(--surface) 60%, transparent);
 }
 
-.card--placeholder .card-icon {
+.card--placeholder .card-updated {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.card-icon {
   color: var(--muted);
   font-weight: 600;
   animation: wobble 3s ease-in-out infinite;
 }
 
-.game-grid li:nth-child(2) .card--placeholder .card-icon { animation-delay: -1s; }
-.game-grid li:nth-child(3) .card--placeholder .card-icon { animation-delay: -2s; }
+.game-grid li:nth-child(2) .card--placeholder .card-updated {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.card-icon { animation-delay: -1s; }
+.game-grid li:nth-child(3) .card--placeholder .card-updated {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.card-icon { animation-delay: -2s; }
 
 .card--placeholder .card-title {
   color: var(--muted);
@@ -192,7 +229,16 @@ a.card:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .card--placeholder .card-icon {
+  .card--placeholder .card-updated {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.card-icon {
     transition: none;
     animation: none;
   }

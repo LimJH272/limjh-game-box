@@ -36,13 +36,15 @@ python3 -m http.server 8000
 2. Add an entry to `window.GAMES` in `js/games.js`:
 
    ```js
-   { id: "snake", title: "Snake", description: "Eat, grow, don't bite yourself.", path: "games/snake/", emoji: "🐍" }
+   { id: "snake", title: "Snake", description: "Eat, grow, don't bite yourself.", path: "games/snake/", emoji: "🐍", updated: "2026-10-13" }
    ```
 
 Use **relative paths** everywhere (no leading `/`), since the site is served
 from the `/limjh-game-box/` sub-path rather than the domain root.
 
-While the registry is empty, the landing page shows "Coming soon" placeholder cards.
+`updated` (YYYY-MM-DD) is shown in the top-right corner of the card as "Updated 13 Oct 2026". Bump it whenever you change the game.
+
+The landing page always shows two "Coming soon" placeholder cards after the real games.
 
 ## Deployment
 
