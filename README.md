@@ -7,7 +7,7 @@ A compendium of small browser minigames, hosted on GitHub Pages at
 
 | Game | Description |
 | --- | --- |
-| [GSSTHWRDS](games/gssthwrds/) | Guess words and phrases from their consonants alone. Party mode (self-scored) or Solo mode (type your guess). |
+| [GSSTHWRDS](games/gssthwrds/) | Guess words and phrases from their consonants alone. Party mode (self-scored) or Solo mode (type your guess). See the [game docs](games/gssthwrds/README.md). |
 
 ## Project structure
 
@@ -16,7 +16,7 @@ index.html          Landing page
 css/style.css       Styles (light/dark adaptive)
 js/games.js         Game registry (the list shown on the landing page)
 js/main.js          Renders the game cards
-games/<id>/         One folder per game, each with its own index.html
+games/<id>/         One folder per game, each with its own index.html and README.md
 .github/workflows/  GitHub Pages deployment
 ```
 
@@ -31,7 +31,8 @@ python3 -m http.server 8000
 
 ## Adding a game
 
-1. Create `games/<id>/index.html` (plus any assets it needs).
+1. Create `games/<id>/index.html` (plus any assets it needs) and a `README.md`
+   documenting how to play and how the code is organised.
 2. Add an entry to `window.GAMES` in `js/games.js`:
 
    ```js
