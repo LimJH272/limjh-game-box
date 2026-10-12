@@ -8,9 +8,12 @@
   var screens = { setup: $("setup"), game: $("game"), results: $("results") };
 
   var wordsInput = $("words");
+  var categoryInput = $("category");
+  var backdrop = $("words-backdrop");
   var playBtn = $("play");
 
   var mode = "party";
+  var category = "";
   var rounds = [];
   var index = 0;
 
@@ -69,12 +72,14 @@
 
   // A line must mix vowels with something else: no vowels at all (consonants,
   // digits or symbols only) or nothing but vowels can't be played.
+  function isInvalid(line) {
+    var chars = letters(line).split("");
+    var vowels = chars.filter(isVowel).length;
+    return vowels === 0 || vowels === chars.length;
+  }
+
   function invalidLines() {
-    return lines().filter(function (line) {
-      var chars = letters(line).split("");
-      var vowels = chars.filter(isVowel).length;
-      return vowels === 0 || vowels === chars.length;
-    });
+    return lines().filter(isInvalid);
   }
 
   // ---------- Setup ----------
@@ -85,7 +90,11 @@
 
   function saveSetup() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ words: wordsInput.value, mode: selectedMode() }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        words: wordsInput.value,
+        category: categoryInput.value,
+        mode: selectedMode()
+      }));
     } catch (e) { /* storage unavailable */ }
   }
 
@@ -94,17 +103,48 @@
       var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
       if (!saved) return;
       wordsInput.value = saved.words || "";
+      categoryInput.value = saved.category || "";
       var radio = document.querySelector('input[name="mode"][value="' + saved.mode + '"]');
       if (radio) radio.checked = true;
     } catch (e) { /* storage unavailable */ }
   }
 
   function updatePlayButton() {
-    var invalid = invalidLines();
+    var invalid = invalidLines().length;
     var error = $("words-error");
-    error.hidden = invalid.length === 0;
-    error.textContent = "Each line needs both vowels and consonants. Fix: " + invalid.join(", ");
-    playBtn.disabled = lines().length === 0 || invalid.length > 0;
+    error.hidden = invalid === 0;
+    error.textContent = (invalid === 1 ? "The highlighted line needs" : "The " + invalid + " highlighted lines need") +
+      " at least one vowel and one consonant.";
+    playBtn.disabled = lines().length === 0 || invalid > 0;
+    highlightInvalid();
+  }
+
+  // Textareas can't style individual lines, so a backdrop behind the
+  // (transparent) textarea mirrors its text and marks the invalid lines.
+  function highlightInvalid() {
+    backdrop.textContent = "";
+    wordsInput.value.split("\n").forEach(function (line, i) {
+      if (i > 0) backdrop.appendChild(document.createTextNode("\n"));
+      if (line.trim() && isInvalid(line.trim())) {
+        var mark = document.createElement("mark");
+        mark.textContent = line;
+        backdrop.appendChild(mark);
+      } else {
+        backdrop.appendChild(document.createTextNode(line));
+      }
+    });
+    // A trailing newline needs something after it to take up a line.
+    backdrop.appendChild(document.createTextNode(" "));
+    syncBackdrop();
+  }
+
+  function syncBackdrop() {
+    var style = getComputedStyle(wordsInput);
+    backdrop.style.top = style.borderTopWidth;
+    backdrop.style.left = style.borderLeftWidth;
+    backdrop.style.width = wordsInput.clientWidth + "px";
+    backdrop.style.height = wordsInput.clientHeight + "px";
+    backdrop.scrollTop = wordsInput.scrollTop;
   }
 
   function show(name) {
@@ -114,6 +154,7 @@
 
   function startGame() {
     mode = selectedMode();
+    category = categoryInput.value.trim();
     if (lines().length === 0 || invalidLines().length > 0) return;
     rounds = lines().map(makeRound);
     index = 0;
@@ -178,6 +219,7 @@
     $("score").textContent = score();
     $("total").textContent = rounds.length;
     $("position").textContent = "Word " + (index + 1) + " of " + rounds.length;
+    showCategory($("category-chip"));
 
     renderTiles(round);
     renderHints(round);
@@ -265,11 +307,18 @@
     var started = rounds.some(function (r) { return r.revealed || r.hintsUsed > 0; });
     if (started && !window.confirm("Quit this game? Your progress will be lost.")) return;
     show("setup");
+    syncBackdrop();
   }
 
   // ---------- Results ----------
 
+  function showCategory(node) {
+    node.hidden = !category;
+    node.textContent = "Category: " + category;
+  }
+
   function showResults() {
+    showCategory($("final-category"));
     $("final-score").textContent = score();
     $("final-total").textContent = rounds.length;
 
@@ -292,6 +341,20 @@
   updatePlayButton();
 
   wordsInput.addEventListener("input", function () { updatePlayButton(); saveSetup(); });
+  wordsInput.addEventListener("scroll", syncBackdrop);
+  categoryInput.addEventListener("input", saveSetup);
+  window.addEventListener("resize", syncBackdrop);
+  if (window.ResizeObserver) new ResizeObserver(syncBackdrop).observe(wordsInput);
+
+  document.querySelectorAll("[data-tutorial]").forEach(function (button) {
+    button.addEventListener("click", function () { $(button.dataset.tutorial).showModal(); });
+  });
+  document.querySelectorAll("dialog.tutorial").forEach(function (dialog) {
+    dialog.addEventListener("click", function (event) {
+      // Close on the close buttons, or on a click on the backdrop outside the panel.
+      if (event.target.closest("[data-close]") || event.target === dialog) dialog.close();
+    });
+  });
   document.querySelectorAll('input[name="mode"]').forEach(function (radio) {
     radio.addEventListener("change", saveSetup);
   });
@@ -305,5 +368,5 @@
   $("mark-yes").addEventListener("click", function () { mark(true); });
   $("mark-no").addEventListener("click", function () { mark(false); });
   $("again").addEventListener("click", startGame);
-  $("edit").addEventListener("click", function () { show("setup"); wordsInput.focus(); });
+  $("restart").addEventListener("click", function () { show("setup"); syncBackdrop(); wordsInput.focus(); });
 })();

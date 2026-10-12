@@ -23,20 +23,43 @@
     </header>
 
     <div class="setup-body">
+      <section class="rules" aria-labelledby="rules-title">
+        <h2 id="rules-title">The rules</h2>
+        <ul>
+          <li>Enter one word or phrase per line.</li>
+          <li>Spaces, punctuation and vowels <span class="example">(A E I O U)</span> are removed: <span class="example">Banana split &rarr; <b>BNNSPLT</b></span></li>
+          <li>Y is a consonant. Each line needs at least one vowel and one consonant.</li>
+          <li>Up to 3 hints: vowel count, vowel spots, then half the vowels.</li>
+          <li>Score = words guessed right out of the total.</li>
+        </ul>
+      </section>
+
       <fieldset class="mode-picker">
         <legend>Mode</legend>
-        <label class="mode-option">
-          <input type="radio" name="mode" value="party" checked>
-          <span><strong>Party</strong>Guess out loud, then mark yourselves after the reveal.</span>
-        </label>
-        <label class="mode-option">
-          <input type="radio" name="mode" value="solo">
-          <span><strong>Solo</strong>Type your guess. Revealing without a correct guess counts as a miss.</span>
-        </label>
+        <div class="mode-option">
+          <label>
+            <input type="radio" name="mode" value="party" checked>
+            <span><strong>Party</strong>Guess out loud, then mark yourselves after the reveal.</span>
+          </label>
+          <button class="how-to" type="button" data-tutorial="tutorial-party">How to play</button>
+        </div>
+        <div class="mode-option">
+          <label>
+            <input type="radio" name="mode" value="solo">
+            <span><strong>Solo</strong>Type your guess. Revealing without a correct guess counts as a miss.</span>
+          </label>
+          <button class="how-to" type="button" data-tutorial="tutorial-solo">How to play</button>
+        </div>
       </fieldset>
 
-      <label class="words-label" for="words">Words or phrases, one per line</label>
-      <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll" aria-describedby="words-error"></textarea>
+      <label class="field-label" for="category">Category <span class="optional">(optional)</span></label>
+      <input id="category" class="text-input" type="text" maxlength="40" placeholder="e.g. Movies, Foods, Famous people" autocomplete="off">
+
+      <label class="field-label" for="words">Words or phrases, one per line</label>
+      <div class="words-field">
+        <div id="words-backdrop" class="words-backdrop" aria-hidden="true"></div>
+        <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll" aria-describedby="words-error"></textarea>
+      </div>
       <p id="words-error" class="words-error" role="alert" hidden></p>
 
       <button id="play" class="btn btn-primary btn-wide" type="button" disabled>Play</button>
@@ -52,6 +75,7 @@
     </div>
 
     <div class="stage">
+      <p id="category-chip" class="category-chip" hidden></p>
       <div id="tiles" class="tiles" aria-live="polite"></div>
       <ul id="hints" class="hints"></ul>
       <p id="answer" class="answer" hidden></p>
@@ -79,13 +103,45 @@
     <header class="hero">
       <p class="tagline">Final score</p>
       <h1><span id="final-score">0</span> / <span id="final-total">0</span></h1>
+      <p id="final-category" class="category-chip" hidden></p>
     </header>
     <ol id="summary" class="summary"></ol>
     <div class="results-actions">
       <button id="again" class="btn btn-primary" type="button">Play again</button>
-      <button id="edit" class="btn" type="button">Edit words</button>
+      <button id="restart" class="btn" type="button">Restart</button>
     </div>
   </section>
+
+  <!-- Tutorials -->
+  <dialog id="tutorial-party" class="tutorial" aria-labelledby="tutorial-party-title">
+    <div class="tutorial-head">
+      <h2 id="tutorial-party-title">How to play: Party</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+    </div>
+    <ol class="steps">
+      <li><b>Host sets up.</b> One person types the words (one per line), adds a category if they like, and presses Play. Everyone else looks away!</li>
+      <li><b>Show the screen.</b> Everyone sees only the consonants, e.g. <span class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, and shouts out guesses.</li>
+      <li><b>Need help?</b> Tap <b>Hint</b>. First you learn the number of vowels, then where they go <span class="mini-tiles"><i>B</i><i class="slot"></i><i>N</i><i class="slot"></i><i>N</i><i class="slot"></i><i>S</i><i>P</i><i>L</i><i class="slot"></i><i>T</i></span>, then half of them are filled in.</li>
+      <li><b>Reveal and mark.</b> Tap <b>Reveal</b> to show the answer, then tap <b>&#10003; Got it</b> or <b>&#10007; Missed</b>. Only "Got it" adds to the score.</li>
+      <li><b>Keep going.</b> <b>Next</b> moves on; <b>Back</b> revisits earlier words, where you can still change a mark. After the last word you'll see the final score.</li>
+    </ol>
+    <button class="btn btn-primary btn-wide" type="button" data-close>Got it!</button>
+  </dialog>
+
+  <dialog id="tutorial-solo" class="tutorial" aria-labelledby="tutorial-solo-title">
+    <div class="tutorial-head">
+      <h2 id="tutorial-solo-title">How to play: Solo</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+    </div>
+    <ol class="steps">
+      <li><b>Get a word list.</b> Ask a friend to type the words (one per line) and an optional category, or paste a list you haven't read. Then press Play.</li>
+      <li><b>Guess.</b> Look at the consonants, e.g. <span class="mini-tiles"><i>B</i><i>N</i><i>N</i><i>S</i><i>P</i><i>L</i><i>T</i></span>, type your answer and press <b>Enter</b>. Capitals, spaces and punctuation don't matter.</li>
+      <li><b>Wrong?</b> The box shakes. Try again as many times as you like.</li>
+      <li><b>Need help?</b> Tap <b>Hint</b> for the number of vowels, then where they go, then half of them filled in.</li>
+      <li><b>Give up?</b> <b>Reveal</b> shows the answer but counts as a miss. A correct guess reveals it automatically and scores a point. Then tap <b>Next</b>.</li>
+    </ol>
+    <button class="btn btn-primary btn-wide" type="button" data-close>Got it!</button>
+  </dialog>
 
   <script src="game.js"></script>
 </body>
