@@ -45,7 +45,8 @@
     // Pick the half of the vowels that hint 3 will show, once, so it stays stable.
     var shown = shuffle(vowelSlots.slice()).slice(0, Math.floor(vowelSlots.length / 2));
 
-    var hintCount = vowelSlots.length === 0 ? 1 : vowelSlots.length === 1 ? 2 : 3;
+    // Every word has at least one vowel (see invalidLines), so there are 2 or 3 hints.
+    var hintCount = vowelSlots.length === 1 ? 2 : 3;
 
     return {
       original: line,
@@ -63,7 +64,17 @@
     return wordsInput.value
       .split("\n")
       .map(function (l) { return l.trim(); })
-      .filter(function (l) { return letters(l).length > 0; });
+      .filter(function (l) { return l.length > 0; });
+  }
+
+  // A line must mix vowels with something else: no vowels at all (consonants,
+  // digits or symbols only) or nothing but vowels can't be played.
+  function invalidLines() {
+    return lines().filter(function (line) {
+      var chars = letters(line).split("");
+      var vowels = chars.filter(isVowel).length;
+      return vowels === 0 || vowels === chars.length;
+    });
   }
 
   // ---------- Setup ----------
@@ -89,7 +100,11 @@
   }
 
   function updatePlayButton() {
-    playBtn.disabled = lines().length === 0;
+    var invalid = invalidLines();
+    var error = $("words-error");
+    error.hidden = invalid.length === 0;
+    error.textContent = "Each line needs both vowels and consonants. Fix: " + invalid.join(", ");
+    playBtn.disabled = lines().length === 0 || invalid.length > 0;
   }
 
   function show(name) {
@@ -99,8 +114,8 @@
 
   function startGame() {
     mode = selectedMode();
+    if (lines().length === 0 || invalidLines().length > 0) return;
     rounds = lines().map(makeRound);
-    if (rounds.length === 0) return;
     index = 0;
     $("tiles").dataset.key = "";
     saveSetup();
@@ -133,11 +148,6 @@
 
     var visible = round.chars.filter(function (ch) { return showSlots || !isVowel(ch); });
     tiles.style.setProperty("--count", Math.max(visible.length, 4));
-
-    if (visible.length === 0) {
-      tiles.appendChild(el("span", "tiles-empty", "No consonants!"));
-      return;
-    }
 
     round.chars.forEach(function (ch, i) {
       if (!isVowel(ch)) {

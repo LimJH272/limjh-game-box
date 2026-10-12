@@ -175,6 +175,16 @@ textarea:focus {
   outline-offset: 2px;
 }
 
+.words-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, #d64545 14%, transparent);
+  color: var(--text);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
 /* Game */
 
 .game {
@@ -258,11 +268,6 @@ textarea:focus {
   border-color: var(--accent);
   color: var(--accent);
   box-shadow: 2px 2px 0 var(--accent);
-}
-
-.tiles-empty {
-  color: var(--muted);
-  font: 600 1.3rem var(--font-display);
 }
 
 @keyframes pop {

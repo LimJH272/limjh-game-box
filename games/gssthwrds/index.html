@@ -36,7 +36,8 @@
       </fieldset>
 
       <label class="words-label" for="words">Words or phrases, one per line</label>
-      <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll"></textarea>
+      <textarea id="words" rows="8" spellcheck="false" placeholder="Guess the words&#10;Banana split&#10;Rock and roll" aria-describedby="words-error"></textarea>
+      <p id="words-error" class="words-error" role="alert" hidden></p>
 
       <button id="play" class="btn btn-primary btn-wide" type="button" disabled>Play</button>
     </div>
