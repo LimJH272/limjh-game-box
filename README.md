@@ -8,7 +8,7 @@ A compendium of small browser minigames, hosted on GitHub Pages.
 
 | Game | Description |
 | --- | --- |
-| [GSSTHWRDS](games/gssthwrds/) | Guess words and phrases from their consonants alone. Party mode (self-scored) or Solo mode (type your guess). See the [game docs](games/gssthwrds/README.md). |
+| GSSTHWRDS ([code](games/gssthwrds/) \| [play](https://limjh272.github.io/limjh-game-box/gssthwrds)) | Guess words and phrases from their consonants alone. Party mode (self-scored) or Solo mode (type your guess). See the [game docs](games/gssthwrds/README.md). |
 
 ## Project structure
 
