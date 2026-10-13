@@ -1,7 +1,7 @@
 # LimJH's Game Box
 
 A compendium of small browser minigames, hosted on GitHub Pages at
-`https://<your-username>.github.io/limjh-game-box/`.
+`[https://limjh272.github.io/limjh-game-box/](https://limjh272.github.io/limjh-game-box/)`.
 
 ## Games
 
